@@ -1,24 +1,16 @@
-# README
+# Demo app for rails active record issue 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+My attempt at reproducing the behavior described [here](https://github.com/rails/rails/issues/25347)
 
-Things you may want to cover:
+Instead of the 7 models mentioned there, I am creating only 3 models:
+ 
+* Event
+* User
+* EventsUser
 
-* Ruby version
+The behavior is as expected (and not as described in the issue):
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+    eu = EventsUser.first
+    eu.status = "maybe"
+    eu.save (works fine)
+    eu.destroy (works fine)
