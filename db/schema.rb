@@ -10,12 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160701220905) do
+ActiveRecord::Schema.define(version: 20160701224636) do
+
+  create_table "deals", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_deals_on_team_id"
+  end
+
+  create_table "deals_users", force: :cascade do |t|
+    t.integer  "deal_id"
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deal_id"], name: "index_deals_users_on_deal_id"
+    t.index ["user_id"], name: "index_deals_users_on_user_id"
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "deal_id"
+    t.index ["deal_id"], name: "index_events_on_deal_id"
   end
 
   create_table "events_users", force: :cascade do |t|
@@ -26,6 +46,21 @@ ActiveRecord::Schema.define(version: 20160701220905) do
     t.datetime "updated_at",             null: false
     t.index ["event_id"], name: "index_events_users_on_event_id"
     t.index ["user_id"], name: "index_events_users_on_user_id"
+  end
+
+  create_table "team_users", force: :cascade do |t|
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_team_users_on_team_id"
+    t.index ["user_id"], name: "index_team_users_on_user_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
